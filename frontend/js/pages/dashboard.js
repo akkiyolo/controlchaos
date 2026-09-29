@@ -59,16 +59,24 @@ export async function renderDashboardPage(container) {
 
     <div class="card" style="margin-top: 10px;">
       <div class="card-header">
-        <div class="card-title">Control Engineering Architecture Status</div>
-        <span class="badge badge-success">Phase 1 Complete</span>
+        <div class="card-title">Production Financial Control Platform</div>
+        <span class="badge badge-success">v1.0.0 Institutional Release</span>
       </div>
-      <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 12px;">
-        ControlChaos is configured with remote PostgreSQL database connectivity (Render External with enforced SSL),
-        cryptographic SHA-256 hash-chained audit logging, resilient multi-provider LLM abstraction (Groq, Gemini, Mock),
-        role-based security, and Alembic migrations.
+      <p style="color: var(--text-secondary); font-size: 13px; margin-bottom: 16px;">
+        ControlChaos is complete end-to-end: 15 financial controls, 20 accounting error mutators, strict detection matching,
+        multi-agent governance (Adversary, Investigator, Control Architect, Skeptic, Variance Analyst), Variance Studio with AI commentary,
+        Treasury LCR curves, Subledger reconciliation workbench, Excel multi-tab workbooks, and Power BI M-queries.
       </p>
-      <div style="display: flex; gap: 10px;">
-        <a href="#audit" class="btn btn-secondary btn-sm">Inspect Audit Log & Verify Chain</a>
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+        <a href="#datasets" class="btn btn-secondary btn-sm">Synthetic Ledgers</a>
+        <a href="#mutations" class="btn btn-secondary btn-sm">Mutation Lab</a>
+        <a href="#controls" class="btn btn-secondary btn-sm">15 Controls</a>
+        <a href="#runs" class="btn btn-secondary btn-sm">Runs & Scorecards</a>
+        <a href="#variance" class="btn btn-secondary btn-sm">Variance Studio</a>
+        <a href="#treasury" class="btn btn-secondary btn-sm">Treasury & LCR</a>
+        <a href="#recon" class="btn btn-secondary btn-sm">Reconciliation</a>
+        <a href="#agents" class="btn btn-secondary btn-sm">Agent Workbench</a>
+        <a href="#audit" class="btn btn-secondary btn-sm">Cryptographic Audit</a>
       </div>
     </div>
   `;

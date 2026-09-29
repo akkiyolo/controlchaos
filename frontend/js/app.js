@@ -6,6 +6,13 @@ import { ApiClient } from './api.js';
 import { Router } from './router.js';
 import { renderDashboardPage } from './pages/dashboard.js';
 import { renderDatasetsPage } from './pages/datasets.js';
+import { renderControls } from './pages/controls.js';
+import { renderMutationsPage } from './pages/mutations.js';
+import { renderRunsPage } from './pages/runs.js';
+import { AgentsPage } from './pages/agents.js';
+import { VariancePage } from './pages/variance.js';
+import { TreasuryPage } from './pages/treasury.js';
+import { ReconPage } from './pages/recon.js';
 import { renderAuditPage } from './pages/audit.js';
 import { renderLoginPage } from './pages/login.js';
 
@@ -47,12 +54,6 @@ class App {
         pageTitle.textContent = 'Executive Overview';
         await renderDashboardPage(mainContent);
       },
-      '#audit': async () => {
-        this.ensureShellVisible();
-        pageTitle.textContent = 'Cryptographic Audit Log';
-        await renderAuditPage(mainContent);
-      },
-      // Placeholders for future phases
       '#datasets': async () => {
         this.ensureShellVisible();
         pageTitle.textContent = 'Synthetic Ledgers & Datasets';
@@ -61,22 +62,46 @@ class App {
       '#mutations': async () => {
         this.ensureShellVisible();
         pageTitle.textContent = 'Mutation Lab & Campaigns';
-        mainContent.innerHTML = `<div class="card"><div class="card-header"><div class="card-title">Mutation Catalog</div><span class="badge badge-info">Phase 4</span></div><p style="color:var(--text-secondary);">20 financial error injection mutators with magnitude and stealth tuning will activate in Phase 4.</p></div>`;
+        await renderMutationsPage(mainContent);
       },
       '#controls': async () => {
         this.ensureShellVisible();
         pageTitle.textContent = 'Financial Controls Suite';
-        mainContent.innerHTML = `<div class="card"><div class="card-header"><div class="card-title">Control Suite & Versioning</div><span class="badge badge-info">Phase 3</span></div><p style="color:var(--text-secondary);">Reconciliations, Benford analysis, threshold splitting, and segregation of duties controls activate in Phase 3.</p></div>`;
+        await renderControls(mainContent);
       },
       '#runs': async () => {
         this.ensureShellVisible();
-        pageTitle.textContent = 'Runs & Scorecard';
-        mainContent.innerHTML = `<div class="card"><div class="card-header"><div class="card-title">Execution Engine & Detection Scoring</div><span class="badge badge-info">Phase 5</span></div><p style="color:var(--text-secondary);">Orchestrated control runs with detection matching, false positive benchmarks, and blind spot heatmaps activate in Phase 5.</p></div>`;
+        pageTitle.textContent = 'Runs & Scorecards';
+        await renderRunsPage(mainContent);
+      },
+      '#variance': async () => {
+        this.ensureShellVisible();
+        pageTitle.textContent = 'Variance Studio & AI Commentary';
+        mainContent.innerHTML = await VariancePage.render();
+        await VariancePage.mount();
+      },
+      '#treasury': async () => {
+        this.ensureShellVisible();
+        pageTitle.textContent = 'Treasury & Liquidity Workbench';
+        mainContent.innerHTML = await TreasuryPage.render();
+        await TreasuryPage.mount();
+      },
+      '#recon': async () => {
+        this.ensureShellVisible();
+        pageTitle.textContent = 'Reconciliation Workbench';
+        mainContent.innerHTML = await ReconPage.render();
+        await ReconPage.mount();
       },
       '#agents': async () => {
         this.ensureShellVisible();
-        pageTitle.textContent = 'Governed Multi-Agent Console';
-        mainContent.innerHTML = `<div class="card"><div class="card-header"><div class="card-title">LangGraph Multi-Agent System</div><span class="badge badge-info">Phase 6</span></div><p style="color:var(--text-secondary);">Adversary, Investigator, Control Architect, Skeptic, and Variance Analyst agents activate in Phase 6.</p></div>`;
+        pageTitle.textContent = 'Governed Multi-Agent Workbench';
+        mainContent.innerHTML = await AgentsPage.render();
+        await AgentsPage.mount();
+      },
+      '#audit': async () => {
+        this.ensureShellVisible();
+        pageTitle.textContent = 'Cryptographic Audit Log';
+        await renderAuditPage(mainContent);
       },
     };
 

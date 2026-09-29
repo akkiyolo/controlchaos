@@ -139,3 +139,10 @@ export class ApiClient {
     return await this.request('/audit/verify');
   }
 }
+
+export const api = {
+  get: (url) => ApiClient.request(url, { method: 'GET' }),
+  post: (url, body) => ApiClient.request(url, { method: 'POST', body: body ? JSON.stringify(body) : undefined }),
+  put: (url, body) => ApiClient.request(url, { method: 'PUT', body: body ? JSON.stringify(body) : undefined }),
+  delete: (url) => ApiClient.request(url, { method: 'DELETE' }),
+};

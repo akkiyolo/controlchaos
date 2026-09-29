@@ -9,9 +9,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
+from app.api.agents import router as agents_router
 from app.api.audit import router as audit_router
 from app.api.auth import router as auth_router
+from app.api.controls import router as controls_router
 from app.api.datasets import router as datasets_router
+from app.api.exports import router as exports_router
+from app.api.finance import router as finance_router
+from app.api.mutations import router as mutations_router
+from app.api.runs import router as runs_router
 from app.api.system import router as system_router
 from app.config import get_settings
 from app.core.logging import request_id_ctx, setup_logging
@@ -71,6 +77,12 @@ app.include_router(system_router, prefix=settings.API_PREFIX)
 app.include_router(auth_router, prefix=settings.API_PREFIX)
 app.include_router(audit_router, prefix=settings.API_PREFIX)
 app.include_router(datasets_router, prefix=settings.API_PREFIX)
+app.include_router(controls_router, prefix=settings.API_PREFIX)
+app.include_router(mutations_router, prefix=settings.API_PREFIX)
+app.include_router(runs_router, prefix=settings.API_PREFIX)
+app.include_router(agents_router, prefix=settings.API_PREFIX)
+app.include_router(finance_router, prefix=settings.API_PREFIX)
+app.include_router(exports_router, prefix=settings.API_PREFIX)
 
 # Static file serving for Frontend
 frontend_dir = Path(__file__).resolve().parent.parent.parent / "frontend"

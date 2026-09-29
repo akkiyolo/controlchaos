@@ -200,8 +200,8 @@ class OpenAICompatibleProvider(LLMProvider):
         client = self._get_client()
 
         messages = []
-        if system_prompt:
-            messages.append({"role": "system", "content": system_prompt})
+        full_system = f"{system_prompt or ''}\nYou must format your entire response as a valid JSON object."
+        messages.append({"role": "system", "content": full_system})
         messages.append({"role": "user", "content": prompt})
 
         last_error = None
@@ -356,3 +356,8 @@ class ResilientLLMService:
 
 
 llm_service = ResilientLLMService()
+
+
+def get_provider(agent_name: str) -> LLMProvider:
+    return llm_service.get_provider_for_agent(agent_name)
+
