@@ -2,30 +2,37 @@
 
 import os
 
+# Set test environment variables before importing app
+from pathlib import Path
+
 import pytest
 from fastapi.testclient import TestClient
-from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-# Set test environment variables before importing app
+TEST_DB_FILE = Path(__file__).resolve().parent / "test_temp.db"
 os.environ["APP_ENV"] = "test"
-os.environ["DATABASE_URL"] = "sqlite:///:memory:"
+os.environ["DATABASE_URL"] = f"sqlite:///{TEST_DB_FILE}"
 os.environ["JWT_SECRET"] = "test-secret-key-at-least-32-chars-long-123456"
 os.environ["AUDIT_HASH_SALT"] = "test-audit-salt"
 os.environ["LLM_PROVIDER"] = "mock"
 
 from app.core.security import create_access_token, get_password_hash  # noqa: E402
-from app.db import Base, get_db  # noqa: E402
+from app.db import Base, get_db, get_engine  # noqa: E402
 from app.main import app  # noqa: E402
 from app.models.entities import User  # noqa: E402
 
 
 @pytest.fixture(scope="session")
 def test_engine():
-    engine = create_engine("sqlite:///:memory:", connect_args={"check_same_thread": False})
+    engine = get_engine()
     Base.metadata.create_all(bind=engine)
     yield engine
     Base.metadata.drop_all(bind=engine)
+    if TEST_DB_FILE.exists():
+        try:
+            TEST_DB_FILE.unlink()
+        except Exception:
+            pass
 
 
 @pytest.fixture(scope="function")

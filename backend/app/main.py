@@ -11,6 +11,7 @@ from fastapi.staticfiles import StaticFiles
 
 from app.api.audit import router as audit_router
 from app.api.auth import router as auth_router
+from app.api.datasets import router as datasets_router
 from app.api.system import router as system_router
 from app.config import get_settings
 from app.core.logging import request_id_ctx, setup_logging
@@ -69,6 +70,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 app.include_router(system_router, prefix=settings.API_PREFIX)
 app.include_router(auth_router, prefix=settings.API_PREFIX)
 app.include_router(audit_router, prefix=settings.API_PREFIX)
+app.include_router(datasets_router, prefix=settings.API_PREFIX)
 
 # Static file serving for Frontend
 frontend_dir = Path(__file__).resolve().parent.parent.parent / "frontend"

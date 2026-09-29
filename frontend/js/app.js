@@ -5,6 +5,7 @@
 import { ApiClient } from './api.js';
 import { Router } from './router.js';
 import { renderDashboardPage } from './pages/dashboard.js';
+import { renderDatasetsPage } from './pages/datasets.js';
 import { renderAuditPage } from './pages/audit.js';
 import { renderLoginPage } from './pages/login.js';
 
@@ -55,7 +56,7 @@ class App {
       '#datasets': async () => {
         this.ensureShellVisible();
         pageTitle.textContent = 'Synthetic Ledgers & Datasets';
-        mainContent.innerHTML = `<div class="card"><div class="card-header"><div class="card-title">Dataset Generator</div><span class="badge badge-info">Phase 2</span></div><p style="color:var(--text-secondary);">Balanced double-entry generator, sub-ledgers, budget, treasury, and decoy anomalies will activate in Phase 2.</p></div>`;
+        await renderDatasetsPage(mainContent);
       },
       '#mutations': async () => {
         this.ensureShellVisible();
